@@ -1,4 +1,4 @@
-package ir.mnemati.shorturl;
+package ir.mnemati.B2n;
 
 import org.junit.Test;
 

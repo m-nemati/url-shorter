@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ShortURL</string>
+    <string name="app_name">B2n</string>
     <string name="et_input">Enter your url</string>
     <string name="btn_text">Shorten</string>
     <string name="btn_clear_text">Clear</string>
