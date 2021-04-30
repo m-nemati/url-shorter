@@ -2,6 +2,8 @@ package ir.mnemati.shorturl;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,14 +29,43 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* ***** Define Widgets ***** */
         EditText inputUrl = findViewById(R.id.et_input);
+        Button pasteBtn = findViewById(R.id.btn_paste_url);
         Button shortLinkBtn = findViewById(R.id.btn_short_link);
+        Button copyBtn = findViewById(R.id.btn_copy);
+        Button shareBtn = findViewById(R.id.btn_share);
+        Button clearBtn = findViewById(R.id.btn_clear);
         resultTextView = findViewById(R.id.tv_result);
 
+        /* ***** Short Link Button ***** */
         shortLinkBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String myUrl = inputUrl.getText().toString();
                new JsoupParseTask().execute(myUrl);
+            }
+        });
+
+        /* ***** Clear Button ***** */
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                inputUrl.setText("");
+                resultTextView.setText("");
+                inputUrl.requestFocus();
+                Context cnt = getApplicationContext();
+                Toast.makeText(cnt, "Clear", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /* ***** Copy Button ***** */
+        copyBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                ClipboardManager clipboard = (ClipboardManager)
+                        getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("b2n link", resultTextView.getText().toString());
+                Context cnt = getApplicationContext();
+                Toast.makeText(cnt, "Copy Done!", Toast.LENGTH_SHORT).show();
             }
         });
 

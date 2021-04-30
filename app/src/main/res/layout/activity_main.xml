@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_weight="1"
+        android:layout_weight="0.3"
         android:orientation="vertical"
         android:padding="7dp"
         android:layout_margin="6dp"
@@ -16,10 +16,11 @@
         android:layout_height="0dp">
         <LinearLayout
             android:gravity="center"
+            android:layout_weight="0.5"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp">
             <EditText
                 android:id="@+id/et_input"
                 android:hint="@string/et_input"
@@ -43,9 +44,10 @@
                 android:layout_height="70dp"/>
         </LinearLayout>
         <LinearLayout
+            android:layout_weight="0.5"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp">
             <Button
                 android:id="@+id/btn_short_link"
                 android:text="@string/btn_text"
@@ -58,7 +60,7 @@
 
     </LinearLayout>
     <LinearLayout
-        android:layout_weight="2"
+        android:layout_weight="0.6"
         android:layout_margin="6dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -68,17 +70,18 @@
             android:textSize="18sp"
             android:layout_gravity="center"
             android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="1dp"
             tools:text="Result"
             android:background="@drawable/border"
             android:layout_width="match_parent"
             android:layout_height="60dp"/>
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
+                android:id="@+id/btn_copy"
                 android:text="@string/btn_copy_text"
                 android:textSize="18sp"
                 android:textAllCaps="false"
@@ -87,6 +90,7 @@
                 android:layout_width="130dp"
                 android:layout_height="70dp"/>
             <Button
+                android:id="@+id/btn_share"
                 android:text="@string/btn_share_text"
                 android:textSize="18sp"
                 android:textAllCaps="false"
@@ -95,6 +99,7 @@
                 android:layout_width="130dp"
                 android:layout_height="70dp"/>
             <Button
+                android:id="@+id/btn_clear"
                 android:text="@string/btn_clear_text"
                 android:textSize="18sp"
                 android:textAllCaps="false"
@@ -104,4 +109,18 @@
                 android:layout_height="70dp"/>
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_weight="0.1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <TextView
+            android:text="@string/tv_author_text"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
 </LinearLayout>
