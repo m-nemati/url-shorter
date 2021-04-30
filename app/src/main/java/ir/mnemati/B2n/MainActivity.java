@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -44,10 +46,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String myUrl = inputUrl.getText().toString();
                 new JsoupParseTask().execute(myUrl);
-                copyBtn.setFocusable(true);
-                copyBtn.setFocusableInTouchMode(true);
-                copyBtn.requestFocus();
-
             }
         });
 
@@ -109,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
 
     class JsoupParseTask extends AsyncTask<String, Void, Document> {
         @Override

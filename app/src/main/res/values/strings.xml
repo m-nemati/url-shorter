@@ -6,5 +6,6 @@
     <string name="btn_paste_text">Paste</string>
     <string name="btn_copy_text">Copy</string>
     <string name="btn_share_text">Share</string>
-    <string name="tv_author_text">Programmer by:</string>
+    <string name="tv_author_text">Programming by: ICT_Man</string>
+    <string name="menu_exit">Exit</string>
 </resources>
