@@ -1,10 +1,12 @@
 package ir.mnemati.B2n;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -101,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 String s = resultTextView.getText().toString();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "URL:");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, s);
                 startActivity(Intent.createChooser(sharingIntent, "Share text via"));
             }
@@ -113,6 +115,33 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
         return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.exit_menu:
+                showExitDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void showExitDialog() {
+        new AlertDialog.Builder(this).setMessage("Are you sure you want to exite the app?")
+                .setPositiveButton("yes", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+                        System.exit(0);
+                    }
+                })
+                .setNegativeButton("no", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface paramAnonymousDialogInterface, int paramAnonymousInt) {
+                    }
+                })
+                .show();
     }
 
 
@@ -145,8 +174,14 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Document doc) {
             // execution of result here
             Element frm = doc.getElementById("website");
-            String str = frm.val();
-            resultTextView.setText(str);
+            if(frm == null){
+                Context cnt = getApplicationContext();
+                Toast.makeText(cnt, "Input link not valid!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                String str = frm.val();
+                resultTextView.setText(str);
+            }
         }
 
     }
