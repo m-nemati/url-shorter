@@ -8,4 +8,5 @@
     <string name="btn_share_text">Share</string>
     <string name="tv_author_text">Programming by: ICT_Man</string>
     <string name="menu_exit">Exit</string>
+    <string name="et_custom">https://b2n.ir/<b>custom link</b></string>
 </resources>

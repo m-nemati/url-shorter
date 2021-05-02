@@ -51,11 +51,23 @@
             <Button
                 android:id="@+id/btn_short_link"
                 android:text="@string/btn_text"
+                android:layout_weight="0.3"
                 android:textSize="18sp"
                 android:textAllCaps="false"
                 android:layout_marginTop="10dp"
-                android:layout_width="130dp"
+                android:layout_width="0dp"
                 android:layout_height="70dp"/>
+            <EditText
+                android:id="@+id/et_custom"
+                android:hint="@string/et_custom"
+                android:textSize="18sp"
+                android:padding="10dp"
+                android:background="@color/white"
+                android:layout_marginStart="3dp"
+                android:layout_weight="0.7"
+                android:layout_marginTop="10dp"
+                android:layout_width="0dp"
+                android:layout_height="58dp"/>
         </LinearLayout>
 
     </LinearLayout>
