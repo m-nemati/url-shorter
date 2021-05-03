@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">B2n</string>
-    <string name="et_input">Enter your url</string>
+    <string name="et_input">لینک را وارد کنید</string>
     <string name="btn_text">Shorten</string>
     <string name="btn_clear_text">Clear</string>
     <string name="btn_paste_text">Paste</string>
@@ -8,5 +8,5 @@
     <string name="btn_share_text">Share</string>
     <string name="tv_author_text">Programming by: ICT_Man</string>
     <string name="menu_exit">Exit</string>
-    <string name="et_custom">https://b2n.ir/<b>custom link</b></string>
+    <string name="et_custom">https://b2n.ir/<b>آدرس کوتاه دلخواه</b></string>
 </resources>

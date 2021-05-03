@@ -29,6 +29,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     TextView resultTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* ***** Define Widgets ***** */
         EditText inputUrl = findViewById(R.id.et_input);
+        EditText customUrl = findViewById(R.id.et_custom);
         Button pasteBtn = findViewById(R.id.btn_paste_url);
         Button shortLinkBtn = findViewById(R.id.btn_short_link);
         Button copyBtn = findViewById(R.id.btn_copy);
@@ -47,7 +49,19 @@ public class MainActivity extends AppCompatActivity {
         shortLinkBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String myUrl = inputUrl.getText().toString();
-                new JsoupParseTask().execute(myUrl);
+                String cmUrl = customUrl.getText().toString();
+
+                if(cmUrl.isEmpty()){
+                    new JsoupParseTask().execute(myUrl, "");
+                }
+                else if(cmUrl.length() < 4) {
+                    Context cnt = getApplicationContext();
+                    Toast.makeText(cnt, "آدرس کوتاه دلخواه باید حداقل 4 کاراکتر و غیر فارسی باشد", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    new JsoupParseTask().execute(myUrl, cmUrl);
+                }
+
             }
         });
 
@@ -77,10 +91,11 @@ public class MainActivity extends AppCompatActivity {
         clearBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 inputUrl.setText("");
+                customUrl.setText("");
                 resultTextView.setText("");
                 inputUrl.requestFocus();
                 Context cnt = getApplicationContext();
-                Toast.makeText(cnt, "Clear", Toast.LENGTH_SHORT).show();
+                Toast.makeText(cnt, "Clear Done", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("b2n link", resultTextView.getText().toString());
                 Context cnt = getApplicationContext();
-                Toast.makeText(cnt, "Copy Done!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(cnt, "Copy Done", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -150,13 +165,15 @@ public class MainActivity extends AppCompatActivity {
         protected Document doInBackground(String... urls) {
 
             String getUrl = urls[0];
+            String getCustom = urls[1];
+
             Document document = null;
             try {
                 Connection.Response response =
                         Jsoup.connect("https://b2n.ir/create.php")
                                 .method(Connection.Method.POST)
                                 .data("url", getUrl)
-                                .data("custom", "")
+                                .data("custom", getCustom)
                                 //.followRedirects(true)
                                 .execute();
                 document = response.parse();
@@ -174,13 +191,20 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Document doc) {
             // execution of result here
             Element frm = doc.getElementById("website");
-            if(frm == null){
-                Context cnt = getApplicationContext();
-                Toast.makeText(cnt, "Input link not valid!", Toast.LENGTH_SHORT).show();
-            }
-            else{
+            Element ubox = doc.getElementById("urlbox");
+            Element cbox = doc.getElementById("custombox");
+
+            if (frm != null) {
                 String str = frm.val();
                 resultTextView.setText(str);
+            }
+            else if (ubox.attr("type").equals("hidden")) {
+                Context cnt = getApplicationContext();
+                Toast.makeText(cnt, "آدرس کوتاه دیگری را انتخاب کنید", Toast.LENGTH_SHORT).show();
+            }
+            else  {
+                Context cnt = getApplicationContext();
+                Toast.makeText(cnt, "آدرس اینترنتی وارد شده معتبر نیست، اصلاح و مجدد امتحان کنید", Toast.LENGTH_SHORT).show();
             }
         }
 
